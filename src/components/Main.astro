@@ -1,0 +1,62 @@
+---
+import {Image} from "astro:assets";
+import Me from "../assets/me.png";
+import Social from "./main/Social.astro";
+import BounceArrow from "./main/BounceArrow.astro";
+import Skills from "./main/Skills.astro";
+import Work from "./main/Work.astro";
+---
+
+<main>
+    <section class="min-h-screen">
+        <div class="flex relative h-screen max-w-325 justify-center flex-col md:flex-row items-center px-8 mx-auto text-[#5b575a]">
+            <div class="order-2 md:order-1 flex flex-col gap-4 text-center md:text-left">
+                <p class="font-bold">Hello. 👋</p>
+                <p class="font-[Manrope] text-2xl">I'm Fernando Montano</p>
+                <p class="max-w-100 md:max-w-full">A passionate engineer, able to create <span class="font-bold">high scalable code and exceptional UX.</span> </p>
+                <p class="text-[8px]">(and pixel perfect designs)</p>
+                <div class="flex justify-center md:justify-start">
+                    <div class="border border-[#A1B5D8] p-2 rounded-xl bg-[#a1b5d880]"> <span class="font-bold">Fullstack Developer @</span> Willdom</div>
+                </div>
+                <Social />
+            </div>
+            <div class="order-1 mb-8 md:pt-0 md:order-2">
+                <Image src={Me} alt="Me" width={700} height={700} class="rounded-4xl" loading="eager"/>
+            </div>
+            <BounceArrow />
+        </div>
+    </section>
+
+    <section class="min-h-screen" id="skills">
+        <div class="px-8 md:h-screen max-w-325 mx-auto flex flex-col md:flex-row py-8 text-[#5b575a]">
+            <div class="md:w-1/2">
+                <h2 class="font-bold text-2xl pb-2">Skills:</h2>
+                <p class="max-w-50 pb-2">I have used the following tools profesionally.</p>
+            </div>
+            <Skills />
+            
+        </div>
+
+    </section>
+
+    <section id="work" >
+        <div class="px-8 max-w-325 mx-auto py-8">
+            <div class="text-[#5b575a]">
+                <h2 class="font-bold text-2xl pb-2">Work:</h2>
+                <p class="max-w-50 pb-2">I have worked on the following projects.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <Work />
+            </div>
+        </div>
+    </section>
+</main>
+
+
+<style>
+main {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+</style>

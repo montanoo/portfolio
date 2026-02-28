@@ -1,0 +1,22 @@
+---
+import WorkCard from "../common/WorkCard.astro";
+import Vamo from "../../assets/work/vamo.png"
+import Fodors from "../../assets/work/fodors.png"
+---
+
+<WorkCard image={Fodors} title="Fodors" link="https://www.fodors.com" tags={['Fullstack', 'Vue', 'Laravel', 'PostgreSQL']} />
+<WorkCard image={Vamo} title="Vamo Delivery" link="https://www.vamodelivery.com" tags={['Fullstack', 'React Native', 'Node.js', 'AWS', 'MySQL']} />
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  gsap.registerPlugin(ScrollTrigger);
+    gsap.from("#work-card", 
+        { opacity: 0, x: 30, duration: 1.6, ease: "power2.out", stagger: 0.2, 
+            scrollTrigger: 
+            { 
+                trigger: "#work-card", 
+                start: "top 85%", 
+            }, 
+        });
+</script>

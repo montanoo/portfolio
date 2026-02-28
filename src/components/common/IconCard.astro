@@ -1,0 +1,9 @@
+---
+const { icon, title } = Astro.props;
+import { Icon } from 'astro-icon/components';
+---
+
+<div class="bg-[#EFF1F3] dark:bg-[#5b575a] p-4 flex flex-col items-center justify-center rounded-lg h-24 skill-card">
+    <Icon name={icon} class="w-8 h-8 dark:text-[#EFF1F3] text-[#5b575a]" />
+    <h3 class="text-xs font-bold dark:text-[#EFF1F3] text-[#5b575a]">{title}</h3>
+</div>

@@ -1,0 +1,105 @@
+---
+import IconCard from "../common/IconCard.astro";
+const skillsToShow = [
+    {
+        icon: "simple-icons:react",
+        title: "React",
+    },
+    {
+        icon: "simple-icons:nextdotjs",
+        title: "NextJS",
+    },
+    {
+        icon: "simple-icons:typescript",
+        title: "TypeScript",
+    },
+    {
+        icon: "simple-icons:javascript",
+        title: "Javascript",
+    },
+    {
+        icon: "simple-icons:css3",
+        title: "CSS3",
+    },
+    {
+        icon: "simple-icons:html5",
+        title: "HTML5",
+    },
+    {
+        icon: "simple-icons:tailwindcss",
+        title: "Tailwind",
+    },
+    {
+        icon: "simple-icons:vuedotjs",
+        title: "Vue",
+    },
+    {
+        icon: "simple-icons:docker",
+        title: "Docker",
+    },
+    {
+        icon: "simple-icons:nodedotjs",
+        title: "Node Js",
+    },
+    {
+        icon: "simple-icons:nestjs",
+        title: "NestJS",
+    },
+    {
+        icon: "simple-icons:express",
+        title: "Express",
+    },
+    {
+        icon: "simple-icons:laravel",
+        title: "Laravel",
+    },
+    {
+        icon: "simple-icons:mysql",
+        title: "MySQL",
+    },
+    {
+        icon: "simple-icons:postgresql",
+        title: "PostgreSQL",
+    },
+    {
+        icon: "simple-icons:redis",
+        title: "Redis",
+    },
+    {
+        icon: "simple-icons:linux",
+        title: "Linux",
+    },
+    {
+        icon: "simple-icons:githubactions",
+        title: "GitHub Actions",
+    },
+    {
+        icon: "simple-icons:vercel",
+        title: "Vercel",
+    },
+    {
+        icon: "simple-icons:jenkins",
+        title: "Jenkins",
+    },
+]
+---
+
+<div class="md:w-1/2 grid grid-cols-2 md:grid-cols-4 gap-6 skills-grid">
+    {skillsToShow.map((skill) => (
+        <IconCard icon={skill.icon} title={skill.title} />
+    ))}
+</div>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  gsap.registerPlugin(ScrollTrigger);
+    gsap.from(".skill-card", 
+        { opacity: 0, y: 30, duration: 0.6, ease: "power2.out", stagger: 0.08, 
+            scrollTrigger: 
+            { 
+                trigger: ".skills-grid", 
+                start: "top 85%", 
+            }, 
+        });
+</script>
