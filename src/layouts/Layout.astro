@@ -19,10 +19,42 @@ import { ClientRouter } from "astro:transitions";
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<ClientRouter />
+		<script is:inline>
+			/* ── Theme: anti-FOUC ── */
+			(function () {
+				var stored = localStorage.getItem('theme');
+				var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+				if (stored === 'dark' || ((!stored || stored === 'system') && prefersDark)) {
+					document.documentElement.classList.add('dark');
+				} else {
+					document.documentElement.classList.remove('dark');
+				}
+			})();
+
+			/* ── Language: detect on first visit ── */
+			(function () {
+				if (!localStorage.getItem('lang')) {
+					var browser = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+					localStorage.setItem('lang', browser.startsWith('es') ? 'es' : 'en');
+				}
+				document.documentElement.lang = localStorage.getItem('lang');
+			})();
+
+			/* ── Preserve both across view transitions ── */
+			document.addEventListener('astro:before-swap', function (e) {
+				/* theme */
+				if (document.documentElement.classList.contains('dark')) {
+					e.newDocument.documentElement.classList.add('dark');
+				} else {
+					e.newDocument.documentElement.classList.remove('dark');
+				}
+				/* language */
+				e.newDocument.documentElement.lang = document.documentElement.lang;
+			});
+		</script>
 	</head>
-	<body class="font-[Manrope] bg-[#FFFCF7] flex flex-col min-h-screen">
+	<body class="font-[Manrope] bg-[#FFFCF7] dark:bg-[#1c1917] flex flex-col min-h-screen transition-colors duration-300">
 		<Header />
-		
 		<slot />
 		<Footer />
 	</body>

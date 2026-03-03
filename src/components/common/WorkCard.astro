@@ -29,7 +29,7 @@ const { title, image, tags, link } = Astro.props as Props;
     </a>
 
     {tags.map((tag) => (
-        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-[10px] font-bold text-gray-700 mr-2 mb-2 font-[Manrope]">
+        <span class="inline-block bg-gray-200 dark:bg-[#292524] rounded-full px-3 py-1 text-[10px] font-bold text-gray-700 dark:text-[#d6d3d1] mr-2 mb-2 font-[Manrope]">
             {tag}
         </span>
     ))}

@@ -1,14 +1,350 @@
 ---
 ---
 
-<header id="header" class="absolute top-0 w-full z-50 border-b border-black/5 transition-all duration-300">
-    <div id="header-content" class="px-8 py-4 flex justify-between items-center gap-16 font-[Inter] text-black max-w-325 mx-auto transition-all duration-500">
-        <a href="/" class={`text-[#5b575a] hover:text-black transition-all duration-500 font-bold`}>Montano<span class="text-[#A1B5D8]">.</span></a>
-        <div class="hidden md:flex text-xs gap-8">
-            <a href="/#skills" class={`hover:font-bold text-[#5b575a] transition-all duration-500`}>Skills</a> 
-            <a href="/#work" class={`hover:font-bold text-[#5b575a] transition-all duration-500 `}>Work</a> 
-            <!-- <a href="/blog" class={`hover:font-bold text-[#5b575a] transition-all duration-500`}>Blog</a>  -->
-            <a href="/contact" class={`hover:font-bold text-[#5b575a] transition-all duration-500`} data-astro-reload>Contact Me</a> 
+<header id="header" class="absolute top-0 w-full z-50 border-b border-black/5 dark:border-white/8 transition-all duration-300">
+    <div id="header-content" class="px-8 py-4 flex justify-between items-center gap-16 font-[Inter] text-black dark:text-white max-w-325 mx-auto transition-all duration-500">
+        <a href="/" class="text-[#5b575a] dark:text-[#d6d3d1] hover:text-black dark:hover:text-white transition-colors duration-300 font-bold">
+            Montano<span class="text-[#A1B5D8]">.</span>
+        </a>
+
+        <div class="flex items-center gap-6 ml-auto">
+            <!-- Desktop nav -->
+            <div class="hidden md:flex text-xs gap-8">
+                <a href="/#skills"  data-i18n="nav.skills"  class="hover:font-bold text-[#5b575a] dark:text-[#d6d3d1] hover:text-black dark:hover:text-white transition-all duration-300">Skills</a>
+                <a href="/#work"    data-i18n="nav.work"    class="hover:font-bold text-[#5b575a] dark:text-[#d6d3d1] hover:text-black dark:hover:text-white transition-all duration-300">Work</a>
+                <a href="/contact/" data-i18n="nav.contact" class="hover:font-bold text-[#5b575a] dark:text-[#d6d3d1] hover:text-black dark:hover:text-white transition-all duration-300" data-astro-reload>Contact Me</a>
+            </div>
+
+            <!-- Combined theme + language toggle -->
+            <div class="relative" id="combo-wrapper">
+                <button
+                    id="combo-btn"
+                    class="h-8 px-2 flex items-center gap-1.5 text-[#5b575a] dark:text-[#d6d3d1] hover:text-black dark:hover:text-white transition-colors duration-300 cursor-pointer rounded-lg"
+                    aria-label="Appearance and language"
+                >
+                    <!-- Sun -->
+                    <svg id="ti-sun" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4"/>
+                        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+                    </svg>
+                    <!-- Moon -->
+                    <svg id="ti-moon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                    <!-- Monitor -->
+                    <svg id="ti-system" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden">
+                        <rect x="2" y="3" width="20" height="14" rx="2"/>
+                        <path d="M8 21h8M12 17v4"/>
+                    </svg>
+                    <!-- Divider pip -->
+                    <span class="w-px h-3 bg-current opacity-20"></span>
+                    <!-- Language label -->
+                    <span id="ti-lang" class="text-[10px] font-semibold tracking-wide">EN</span>
+                </button>
+
+                <!-- Combined dropdown -->
+                <div
+                    id="combo-dropdown"
+                    class="absolute right-0 top-full mt-2 bg-[#FFFCF7] dark:bg-[#292524] border border-black/10 dark:border-white/10 rounded-xl shadow-lg shadow-black/10 dark:shadow-black/30 p-1 min-w-44 opacity-0 pointer-events-none transition-all duration-200 translate-y-1 z-50"
+                >
+                    <!-- Appearance section -->
+                    <p class="px-3 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-widest text-[#5b575a]/40 dark:text-[#d6d3d1]/40 select-none" data-i18n="dd.appearance">Appearance</p>
+                    <button data-theme="light" class="combo-opt theme-opt w-full flex items-center gap-2.5 px-3 py-2 text-xs text-[#5b575a] dark:text-[#d6d3d1] hover:bg-black/5 dark:hover:bg-white/8 rounded-lg transition-colors duration-150 cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+                        </svg>
+                        <span data-i18n="theme.light">Light</span>
+                    </button>
+                    <button data-theme="dark" class="combo-opt theme-opt w-full flex items-center gap-2.5 px-3 py-2 text-xs text-[#5b575a] dark:text-[#d6d3d1] hover:bg-black/5 dark:hover:bg-white/8 rounded-lg transition-colors duration-150 cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                        <span data-i18n="theme.dark">Dark</span>
+                    </button>
+                    <button data-theme="system" class="combo-opt theme-opt w-full flex items-center gap-2.5 px-3 py-2 text-xs text-[#5b575a] dark:text-[#d6d3d1] hover:bg-black/5 dark:hover:bg-white/8 rounded-lg transition-colors duration-150 cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+                        </svg>
+                        <span data-i18n="theme.system">System</span>
+                    </button>
+
+                    <!-- Divider -->
+                    <div class="my-1 mx-2 border-t border-black/8 dark:border-white/8"></div>
+
+                    <!-- Language section -->
+                    <p class="px-3 pt-1 pb-1 text-[10px] font-semibold uppercase tracking-widest text-[#5b575a]/40 dark:text-[#d6d3d1]/40 select-none" data-i18n="dd.language">Language</p>
+                    <button data-lang="en" class="combo-opt lang-opt w-full flex items-center gap-2.5 px-3 py-2 text-xs text-[#5b575a] dark:text-[#d6d3d1] hover:bg-black/5 dark:hover:bg-white/8 rounded-lg transition-colors duration-150 cursor-pointer">
+                        <span class="text-sm leading-none" aria-hidden="true">🇺🇸</span>
+                        English
+                    </button>
+                    <button data-lang="es" class="combo-opt lang-opt w-full flex items-center gap-2.5 px-3 py-2 text-xs text-[#5b575a] dark:text-[#d6d3d1] hover:bg-black/5 dark:hover:bg-white/8 rounded-lg transition-colors duration-150 cursor-pointer">
+                        <span class="text-sm leading-none" aria-hidden="true">🇪🇸</span>
+                        Español
+                    </button>
+                </div>
+            </div>
+
+            <!-- Hamburger (mobile only) -->
+            <button
+                id="hamburger-btn"
+                class="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-1.5 cursor-pointer"
+                aria-label="Toggle menu"
+                aria-expanded="false"
+            >
+                <span id="bar-top" class="block h-px w-6 bg-[#5b575a] dark:bg-[#d6d3d1] transition-all duration-300 origin-center"></span>
+                <span id="bar-mid" class="block h-px w-6 bg-[#5b575a] dark:bg-[#d6d3d1] transition-all duration-300 origin-center"></span>
+                <span id="bar-bot" class="block h-px w-6 bg-[#5b575a] dark:bg-[#d6d3d1] transition-all duration-300 origin-center"></span>
+            </button>
         </div>
     </div>
 </header>
+
+<!-- Mobile menu overlay -->
+<div
+    id="mobile-menu"
+    class="fixed inset-0 z-40 flex flex-col items-center justify-center bg-[#FFFCF7] dark:bg-[#1c1917] md:hidden pointer-events-none opacity-0 transition-opacity duration-300"
+>
+    <nav class="flex flex-col items-center gap-10 text-2xl font-[Inter] translate-y-6 transition-transform duration-300" id="mobile-nav">
+        <a href="/#skills"  data-i18n="nav.skills"  class="text-[#5b575a] dark:text-[#d6d3d1] hover:text-black dark:hover:text-white transition-colors duration-300">Skills</a>
+        <a href="/#work"    data-i18n="nav.work"    class="text-[#5b575a] dark:text-[#d6d3d1] hover:text-black dark:hover:text-white transition-colors duration-300">Work</a>
+        <a href="/contact/" data-i18n="nav.contact" class="text-[#5b575a] dark:text-[#d6d3d1] hover:text-black dark:hover:text-white transition-colors duration-300" data-astro-reload>Contact Me</a>
+    </nav>
+</div>
+
+<script is:inline>
+/* ═══════════════════════════════════════════
+   TRANSLATIONS
+═══════════════════════════════════════════ */
+var TRANSLATIONS = {
+    en: {
+        'nav.skills': 'Skills', 'nav.work': 'Work', 'nav.contact': 'Contact Me',
+        'hero.greeting': 'Hello. 👋',
+        'hero.name': "I'm Fernando Montano",
+        'hero.description': 'A passionate engineer, able to create <span class="font-bold">high scalable code and exceptional UX.</span>',
+        'hero.pixel': '(and pixel perfect designs)',
+        'hero.badge': 'Fullstack Developer @',
+        'skills.title': 'Skills:',
+        'skills.desc':  'I have used the following tools profesionally.',
+        'work.title': 'Work:',
+        'work.desc':  'I have worked on the following projects.',
+        'contact.eyebrow': "Let's talk. 💬",
+        'contact.heading': 'Get in Touch',
+        'contact.desc': "Have a project in mind or just want to say hello? <span class=\"font-bold\">I'd love to hear from you.</span>",
+        'contact.name': 'Name',           'contact.name.ph': 'Your name',
+        'contact.email': 'Email',         'contact.email.ph': 'you@example.com',
+        'contact.subject': 'Subject',     'contact.subject.ph': "What's this about?",
+        'contact.message': 'Message',     'contact.message.ph': 'Tell me about your project...',
+        'contact.submit': 'Send Message ✉️',
+        'contact.footer': "(i'll get back to you as soon as possible)",
+        'dd.appearance': 'Appearance', 'dd.language': 'Language',
+        'theme.light': 'Light', 'theme.dark': 'Dark', 'theme.system': 'System',
+    },
+    es: {
+        'nav.skills': 'Habilidades', 'nav.work': 'Proyectos', 'nav.contact': 'Contáctame',
+        'hero.greeting': 'Hola. 👋',
+        'hero.name': 'Soy Fernando Montano',
+        'hero.description': 'Un ingeniero apasionado, capaz de crear <span class="font-bold">código altamente escalable y UX excepcional.</span>',
+        'hero.pixel': '(y diseños perfectos)',
+        'hero.badge': 'Desarrollador Fullstack @',
+        'skills.title': 'Habilidades:',
+        'skills.desc':  'He utilizado las siguientes herramientas de forma profesional.',
+        'work.title': 'Proyectos:',
+        'work.desc':  'He trabajado en los siguientes proyectos.',
+        'contact.eyebrow': 'Hablemos. 💬',
+        'contact.heading': 'Contáctame',
+        'contact.desc': '¿Tienes un proyecto en mente o simplemente quieres saludar? <span class="font-bold">Me encantaría saber de ti.</span>',
+        'contact.name': 'Nombre',        'contact.name.ph': 'Tu nombre',
+        'contact.email': 'Correo',       'contact.email.ph': 'tu@ejemplo.com',
+        'contact.subject': 'Asunto',     'contact.subject.ph': '¿De qué se trata?',
+        'contact.message': 'Mensaje',    'contact.message.ph': 'Cuéntame sobre tu proyecto...',
+        'contact.submit': 'Enviar mensaje ✉️',
+        'contact.footer': '(te responderé lo antes posible)',
+        'dd.appearance': 'Apariencia', 'dd.language': 'Idioma',
+        'theme.light': 'Claro', 'theme.dark': 'Oscuro', 'theme.system': 'Sistema',
+    }
+};
+
+/* Expose so contact form script can access dynamic strings */
+window.__T = TRANSLATIONS;
+
+/* ═══════════════════════════════════════════
+   APPLY TRANSLATIONS
+═══════════════════════════════════════════ */
+function applyTranslations(lang) {
+    var t = TRANSLATIONS[lang] || TRANSLATIONS.en;
+    document.documentElement.lang = lang;
+
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        var key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.textContent = t[key];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(function (el) {
+        var key = el.getAttribute('data-i18n-html');
+        if (t[key] !== undefined) el.innerHTML = t[key];
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(function (el) {
+        var key = el.getAttribute('data-i18n-ph');
+        if (t[key] !== undefined) el.setAttribute('placeholder', t[key]);
+    });
+}
+
+/* ═══════════════════════════════════════════
+   HAMBURGER
+═══════════════════════════════════════════ */
+function initHamburger() {
+    var btn    = document.getElementById('hamburger-btn');
+    var menu   = document.getElementById('mobile-menu');
+    var nav    = document.getElementById('mobile-nav');
+    var barTop = document.getElementById('bar-top');
+    var barMid = document.getElementById('bar-mid');
+    var barBot = document.getElementById('bar-bot');
+    if (!btn || !menu) return;
+
+    var open = false;
+
+    function openMenu() {
+        open = true;
+        btn.setAttribute('aria-expanded', 'true');
+        barTop.style.transform = 'translateY(7px) rotate(45deg)';
+        barMid.style.opacity   = '0';
+        barBot.style.transform = 'translateY(-7px) rotate(-45deg)';
+        menu.style.pointerEvents = 'auto';
+        menu.style.opacity       = '1';
+        nav.style.transform      = 'translateY(0)';
+        document.body.style.overflow = 'hidden';
+    }
+    function closeMenu() {
+        open = false;
+        btn.setAttribute('aria-expanded', 'false');
+        barTop.style.transform = '';
+        barMid.style.opacity   = '1';
+        barBot.style.transform = '';
+        menu.style.opacity     = '0';
+        nav.style.transform    = 'translateY(6px)';
+        setTimeout(function () { if (!open) menu.style.pointerEvents = 'none'; }, 300);
+        document.body.style.overflow = '';
+    }
+
+    btn.addEventListener('click', function () { open ? closeMenu() : openMenu(); });
+    menu.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', closeMenu); });
+    window.addEventListener('resize', function () { if (window.innerWidth >= 768 && open) closeMenu(); });
+}
+
+/* ═══════════════════════════════════════════
+   COMBINED THEME + LANGUAGE TOGGLE
+═══════════════════════════════════════════ */
+function initCombo() {
+    var comboBtn  = document.getElementById('combo-btn');
+    var dropdown  = document.getElementById('combo-dropdown');
+    var wrapper   = document.getElementById('combo-wrapper');
+    if (!comboBtn || !dropdown) return;
+
+    var storedTheme = localStorage.getItem('theme') || 'system';
+    var storedLang  = localStorage.getItem('lang')  || 'en';
+
+    /* ── helpers ── */
+    function setThemeIcon(theme) {
+        var sun = document.getElementById('ti-sun');
+        var moon = document.getElementById('ti-moon');
+        var sys  = document.getElementById('ti-system');
+        if (!sun) return;
+        sun.classList.add('hidden');
+        moon.classList.add('hidden');
+        sys.classList.add('hidden');
+        if (theme === 'light')     sun.classList.remove('hidden');
+        else if (theme === 'dark') moon.classList.remove('hidden');
+        else                       sys.classList.remove('hidden');
+    }
+
+    function setLangLabel(lang) {
+        var label = document.getElementById('ti-lang');
+        if (label) label.textContent = lang.toUpperCase();
+    }
+
+    function markActive(selector, attrName, value) {
+        document.querySelectorAll(selector).forEach(function (btn) {
+            var active = btn.getAttribute(attrName) === value;
+            btn.style.fontWeight = active ? '600' : '';
+            btn.style.opacity    = active ? '1'   : '0.5';
+        });
+    }
+
+    function applyTheme(theme) {
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var isDark = theme === 'dark' || (theme === 'system' && prefersDark);
+        document.documentElement.style.transition = 'background-color 0.3s ease, color 0.2s ease';
+        document.documentElement.classList.toggle('dark', isDark);
+        setTimeout(function () { document.documentElement.style.transition = ''; }, 350);
+    }
+
+    /* ── initialise UI state ── */
+    setThemeIcon(storedTheme);
+    setLangLabel(storedLang);
+    markActive('.theme-opt', 'data-theme', storedTheme);
+    markActive('.lang-opt',  'data-lang',  storedLang);
+    applyTranslations(storedLang);
+
+    /* ── dropdown open / close ── */
+    var ddOpen = false;
+
+    function openDropdown() {
+        ddOpen = true;
+        dropdown.style.opacity       = '1';
+        dropdown.style.pointerEvents = 'auto';
+        dropdown.style.transform     = 'translateY(0)';
+    }
+    function closeDropdown() {
+        ddOpen = false;
+        dropdown.style.opacity       = '0';
+        dropdown.style.pointerEvents = 'none';
+        dropdown.style.transform     = 'translateY(4px)';
+    }
+
+    comboBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        ddOpen ? closeDropdown() : openDropdown();
+    });
+    document.addEventListener('click', function (e) {
+        if (ddOpen && wrapper && !wrapper.contains(e.target)) closeDropdown();
+    });
+
+    /* ── theme options ── */
+    document.querySelectorAll('.theme-opt').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var theme = btn.getAttribute('data-theme');
+            localStorage.setItem('theme', theme);
+            applyTheme(theme);
+            setThemeIcon(theme);
+            markActive('.theme-opt', 'data-theme', theme);
+            closeDropdown();
+        });
+    });
+
+    /* ── language options ── */
+    document.querySelectorAll('.lang-opt').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var lang = btn.getAttribute('data-lang');
+            localStorage.setItem('lang', lang);
+            setLangLabel(lang);
+            markActive('.lang-opt', 'data-lang', lang);
+            applyTranslations(lang);
+            closeDropdown();
+        });
+    });
+
+    /* ── re-apply theme when system preference changes ── */
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
+        var current = localStorage.getItem('theme') || 'system';
+        if (current === 'system') applyTheme('system');
+    });
+}
+
+/* ── Boot & re-boot after view transitions ── */
+function boot() {
+    initHamburger();
+    initCombo();
+}
+
+boot();
+document.addEventListener('astro:page-load', boot);
+</script>
