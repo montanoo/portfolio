@@ -1,9 +1,106 @@
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 128 128">
-    <path d="M50.4 78.5a75.1 75.1 0 0 0-28.5 6.9l24.2-65.7c.7-2 1.9-3.2 3.4-3.2h29c1.5 0 2.7 1.2 3.4 3.2l24.2 65.7s-11.6-7-28.5-7L67 45.5c-.4-1.7-1.6-2.8-2.9-2.8-1.3 0-2.5 1.1-2.9 2.7L50.4 78.5Zm-1.1 28.2Zm-4.2-20.2c-2 6.6-.6 15.8 4.2 20.2a17.5 17.5 0 0 1 .2-.7 5.5 5.5 0 0 1 5.7-4.5c2.8.1 4.3 1.5 4.7 4.7.2 1.1.2 2.3.2 3.5v.4c0 2.7.7 5.2 2.2 7.4a13 13 0 0 0 5.7 4.9v-.3l-.2-.3c-1.8-5.6-.5-9.5 4.4-12.8l1.5-1a73 73 0 0 0 3.2-2.2 16 16 0 0 0 6.8-11.4c.3-2 .1-4-.6-6l-.8.6-1.6 1a37 37 0 0 1-22.4 2.7c-5-.7-9.7-2-13.2-6.2Z" />
-    <style>
-        path { fill: #000; }
-        @media (prefers-color-scheme: dark) {
-            path { fill: #FFF; }
-        }
-    </style>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="#000" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <!-- Main shield shape -->
+  <g filter="url(#shadow)">
+    <path d="
+      M 256 52
+      C 316 52, 390 68, 446 96
+      C 450 98, 452 102, 452 106
+      L 452 236
+      C 452 332, 374 408, 256 458
+      C 138 408, 60 332, 60 236
+      L 60 106
+      C 60 102, 62 98, 66 96
+      C 122 68, 196 52, 256 52 Z
+    " fill="#0a0a0a" stroke="none"/>
+  </g>
+
+  <!-- Inner shield outline -->
+  <path d="
+    M 256 72
+    C 312 72, 378 86, 430 112
+    C 433 113, 434 116, 434 119
+    L 434 234
+    C 434 322, 362 392, 256 438
+    C 150 392, 78 322, 78 234
+    L 78 119
+    C 78 116, 79 113, 82 112
+    C 134 86, 200 72, 256 72 Z
+  " fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Globe latitude arcs -->
+  <g opacity="0.9" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round">
+    <path d="M 130 210 Q 256 180, 382 210" opacity="0.25"/>
+    <path d="M 112 260 Q 256 230, 400 260" opacity="0.2"/>
+    <path d="M 140 310 Q 256 280, 372 310" opacity="0.15"/>
+  </g>
+
+  <!-- Central streaming arrow -->
+  <g transform="translate(256, 248)">
+    <g fill="#fff">
+      <!-- Main chevron -->
+      <path d="
+        M -8 -44
+        L 52 0
+        L -8 44
+        L -8 28
+        L 32 0
+        L -8 -28 Z
+      " opacity="0.95"/>
+      <!-- Secondary chevron -->
+      <path d="
+        M -34 -32
+        L 14 0
+        L -34 32
+        L -34 20
+        L 0 0
+        L -34 -20 Z
+      " opacity="0.45"/>
+      <!-- Tertiary chevron -->
+      <path d="
+        M -54 -22
+        L -22 0
+        L -54 22
+        L -54 14
+        L -30 0
+        L -54 -14 Z
+      " opacity="0.2"/>
+    </g>
+
+    <!-- Edge node dots -->
+    <g fill="#fff">
+      <circle cx="68" cy="-24" r="3.5" opacity="0.7"/>
+      <circle cx="76" cy="0" r="4.5" opacity="0.9"/>
+      <circle cx="68" cy="24" r="3.5" opacity="0.7"/>
+      <circle cx="54" cy="-42" r="2.5" opacity="0.4"/>
+      <circle cx="54" cy="42" r="2.5" opacity="0.4"/>
+    </g>
+  </g>
+
+  <!-- Connecting lines to edge nodes -->
+  <g stroke="#fff" stroke-width="0.8" opacity="0.3" stroke-linecap="round">
+    <line x1="308" y1="248" x2="324" y2="224"/>
+    <line x1="308" y1="248" x2="332" y2="248"/>
+    <line x1="308" y1="248" x2="324" y2="272"/>
+    <line x1="300" y1="240" x2="310" y2="206"/>
+    <line x1="300" y1="256" x2="310" y2="290"/>
+  </g>
+
+  <!-- Top highlight -->
+  <path d="
+    M 256 72
+    C 312 72, 378 86, 430 112
+    C 433 113, 434 116, 434 119
+    L 434 150
+    C 360 130, 300 120, 256 120
+    C 212 120, 152 130, 78 150
+    L 78 119
+    C 78 116, 79 113, 82 112
+    C 134 86, 200 72, 256 72 Z
+  " fill="#fff" opacity="0.04"/>
 </svg>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://montano.me/sitemap-index.xml

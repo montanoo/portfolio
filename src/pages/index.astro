@@ -1,8 +1,47 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Main from '../components/Main.astro';
+
+const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "Person",
+            "@id": "https://montano.me/#person",
+            "name": "Fernando Montano",
+            "url": "https://montano.me/",
+            "jobTitle": "Fullstack Developer",
+            "description": "Fullstack Developer specializing in React, Next.js, TypeScript, Node.js and cloud infrastructure.",
+            "sameAs": [
+                "https://github.com/montanoo",
+                "https://www.linkedin.com/in/fernandojmontano/"
+            ],
+            "worksFor": {
+                "@type": "Organization",
+                "name": "Willdom"
+            },
+            "knowsAbout": [
+                "React", "Next.js", "TypeScript", "JavaScript",
+                "Node.js", "NestJS", "Vue", "Docker",
+                "PostgreSQL", "MySQL", "Redis", "Linux"
+            ]
+        },
+        {
+            "@type": "WebSite",
+            "@id": "https://montano.me/#website",
+            "name": "Fernando Montano",
+            "url": "https://montano.me/",
+            "author": { "@id": "https://montano.me/#person" }
+        }
+    ]
+};
 ---
 
-<Layout title="Fernando Montano | Home">
-	<Main />
+<Layout
+    title="Fernando Montano | Fullstack Developer"
+    description="Fernando Montano – Fullstack Developer specializing in React, Next.js, TypeScript, Node.js and cloud infrastructure. Building high-scalable code and exceptional UX."
+    type="profile"
+    jsonLd={jsonLd}
+>
+    <Main />
 </Layout>

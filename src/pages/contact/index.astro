@@ -1,8 +1,25 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+
+const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact Fernando Montano",
+    "url": "https://montano.me/contact/",
+    "description": "Get in touch with Fernando Montano. Discuss your project, collaboration opportunities, or just say hello.",
+    "author": {
+        "@type": "Person",
+        "name": "Fernando Montano",
+        "url": "https://montano.me/"
+    }
+};
 ---
 
-<Layout title="Fernando Montano | Contact">
+<Layout
+    title="Contact | Fernando Montano"
+    description="Get in touch with Fernando Montano. Have a project in mind or just want to say hello? I'd love to hear from you."
+    jsonLd={jsonLd}
+>
     <main>
         <section class="min-h-screen">
             <div class="flex relative min-h-screen max-w-325 justify-center flex-col items-center px-8 mx-auto text-[#5b575a] dark:text-[#d6d3d1] py-16">

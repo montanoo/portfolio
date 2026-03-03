@@ -1,61 +1,120 @@
 ---
 import '../styles/global.css';
-const { title } = Astro.props;
 import Header from '../components/base/Header.astro';
 import Footer from '../components/base/Footer.astro';
 import { ClientRouter } from "astro:transitions";
+
+interface Props {
+    title:       string;
+    description?: string;
+    ogImage?:    string;
+    type?:       'website' | 'profile' | 'article';
+    jsonLd?:     Record<string, unknown> | Record<string, unknown>[];
+}
+
+const {
+    title,
+    description = 'Fernando Montano – Fullstack Developer specializing in React, Next.js, TypeScript, Node.js and cloud infrastructure. Building high-scalable code and exceptional UX.',
+    ogImage = `${Astro.site}og.png`,
+    type = 'website',
+    jsonLd,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).toString();
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-		<ClientRouter />
-		<script is:inline>
-			/* ── Theme: anti-FOUC ── */
-			(function () {
-				var stored = localStorage.getItem('theme');
-				var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-				if (stored === 'dark' || ((!stored || stored === 'system') && prefersDark)) {
-					document.documentElement.classList.add('dark');
-				} else {
-					document.documentElement.classList.remove('dark');
-				}
-			})();
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-			/* ── Language: detect on first visit ── */
-			(function () {
-				if (!localStorage.getItem('lang')) {
-					var browser = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
-					localStorage.setItem('lang', browser.startsWith('es') ? 'es' : 'en');
-				}
-				document.documentElement.lang = localStorage.getItem('lang');
-			})();
+        <!-- Primary -->
+        <title>{title}</title>
+        <meta name="description"  content={description} />
+        <meta name="author"       content="Fernando Montano" />
+        <meta name="robots"       content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+        <meta name="keywords"     content="Fernando Montano, Fullstack Developer, React, Next.js, TypeScript, Node.js, NestJS, Vue, Docker, PostgreSQL, web developer, portfolio" />
+        <link  rel="canonical"    href={canonical} />
 
-			/* ── Preserve both across view transitions ── */
-			document.addEventListener('astro:before-swap', function (e) {
-				/* theme */
-				if (document.documentElement.classList.contains('dark')) {
-					e.newDocument.documentElement.classList.add('dark');
-				} else {
-					e.newDocument.documentElement.classList.remove('dark');
-				}
-				/* language */
-				e.newDocument.documentElement.lang = document.documentElement.lang;
-			});
-		</script>
-	</head>
-	<body class="font-[Manrope] bg-[#FFFCF7] dark:bg-[#1c1917] flex flex-col min-h-screen transition-colors duration-300">
-		<Header />
-		<slot />
-		<Footer />
-	</body>
+        <!-- Favicons -->
+        <link rel="icon"              type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon"              type="image/x-icon"  href="/favicon.ico" />
+        <link rel="apple-touch-icon"  sizes="180x180"      href="/apple-touch-icon.png" />
+
+        <!-- Theme color (browser chrome) -->
+        <meta name="theme-color" content="#FFFCF7" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#1c1917" media="(prefers-color-scheme: dark)"  />
+
+        <!-- Open Graph -->
+        <meta property="og:type"        content={type} />
+        <meta property="og:url"         content={canonical} />
+        <meta property="og:title"       content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image"       content={ogImage} />
+        <meta property="og:image:width"  content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt"   content={`${title} – Open Graph image`} />
+        <meta property="og:site_name"   content="Fernando Montano" />
+        <meta property="og:locale"      content="en_US" />
+
+        <!-- Twitter Card -->
+        <meta name="twitter:card"        content="summary_large_image" />
+        <meta name="twitter:url"         content={canonical} />
+        <meta name="twitter:title"       content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image"       content={ogImage} />
+        <meta name="twitter:creator"     content="@montanoo" />
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Manrope:wght@200..800&display=swap" rel="stylesheet" />
+
+        <!-- JSON-LD Structured Data -->
+        {jsonLd && (
+            <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+        )}
+
+        <meta name="generator" content={Astro.generator} />
+        <ClientRouter />
+
+        <!-- Anti-FOUC: apply theme before paint -->
+        <script is:inline>
+            /* ── Theme ── */
+            (function () {
+                var stored = localStorage.getItem('theme');
+                var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (stored === 'dark' || ((!stored || stored === 'system') && prefersDark)) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            })();
+
+            /* ── Language: detect on first visit ── */
+            (function () {
+                if (!localStorage.getItem('lang')) {
+                    var browser = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+                    localStorage.setItem('lang', browser.startsWith('es') ? 'es' : 'en');
+                }
+                document.documentElement.lang = localStorage.getItem('lang');
+            })();
+
+            /* ── Preserve both across view transitions ── */
+            document.addEventListener('astro:before-swap', function (e) {
+                if (document.documentElement.classList.contains('dark')) {
+                    e.newDocument.documentElement.classList.add('dark');
+                } else {
+                    e.newDocument.documentElement.classList.remove('dark');
+                }
+                e.newDocument.documentElement.lang = document.documentElement.lang;
+            });
+        </script>
+    </head>
+    <body class="font-[Manrope] bg-[#FFFCF7] dark:bg-[#1c1917] flex flex-col min-h-screen transition-colors duration-300">
+        <Header />
+        <slot />
+        <Footer />
+    </body>
 </html>
