@@ -94,12 +94,16 @@ const skillsToShow = [
   import { gsap } from 'gsap';
   import { ScrollTrigger } from "gsap/ScrollTrigger";
   gsap.registerPlugin(ScrollTrigger);
-    gsap.from(".skill-card", 
-        { opacity: 0, y: 30, duration: 0.6, ease: "power2.out", stagger: 0.08, 
-            scrollTrigger: 
-            { 
-                trigger: ".skills-grid", 
-                start: "top 85%", 
-            }, 
-        });
+    gsap.from(".skill-card", {
+        opacity: 0,
+        y: 30,
+        scale: 0.9,
+        duration: 0.5,
+        ease: "back.out(1.5)",
+        stagger: 0.06,
+        scrollTrigger: {
+            trigger: ".skills-grid",
+            start: "top 85%",
+        },
+    });
 </script>

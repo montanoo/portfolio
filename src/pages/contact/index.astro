@@ -24,7 +24,7 @@ const jsonLd = {
         <section class="min-h-screen">
             <div class="flex relative min-h-screen max-w-325 justify-center flex-col items-center px-8 mx-auto text-[#5b575a] dark:text-[#d6d3d1] py-16">
 
-                <div class="w-full max-w-150 flex flex-col gap-6">
+                <div class="w-full max-w-150 flex flex-col gap-6 contact-content">
                     <div class="text-center md:text-left">
                         <p class="font-bold" data-i18n="contact.eyebrow">Let's talk. 💬</p>
                         <h1 class="font-[Manrope] text-2xl mt-2" data-i18n="contact.heading">Get in Touch</h1>
@@ -92,6 +92,17 @@ const jsonLd = {
         </section>
     </main>
 </Layout>
+
+<script>
+    import { gsap } from 'gsap';
+    gsap.from('.contact-content', {
+        opacity: 0,
+        y: 32,
+        duration: 0.8,
+        ease: 'power3.out',
+        delay: 0.1,
+    });
+</script>
 
 <script>
     const MSGS: Record<string, Record<string, string>> = {

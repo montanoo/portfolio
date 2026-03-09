@@ -11,7 +11,7 @@ interface Props {
 const { title, image, tags, link } = Astro.props as Props;
 ---
 
-<div id="work-card" class="h-auto md:h-87.5">
+<div class="work-card h-auto md:h-87.5">
     <a href={link} class="relative block group" target="_blank">
         <Image
             src={image}
