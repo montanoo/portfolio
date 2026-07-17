@@ -1,0 +1,64 @@
+---
+/* Trailing cursor dot — rendered globally, activated only on
+   fine-pointer devices with motion enabled (see script). */
+---
+
+<div id="cursor-dot" aria-hidden="true"></div>
+
+<style>
+    #cursor-dot {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 12px;
+        height: 12px;
+        border-radius: 9999px;
+        background: var(--color-accent);
+        pointer-events: none;
+        z-index: 9999;
+        opacity: 0;
+        will-change: transform;
+    }
+</style>
+
+<script>
+    import { gsap } from 'gsap';
+
+    const finePointer = window.matchMedia('(pointer: fine)').matches;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const dot = document.getElementById('cursor-dot');
+
+    if (dot && finePointer && !reduceMotion) {
+        gsap.set(dot, { xPercent: -50, yPercent: -50 });
+
+        const xTo = gsap.quickTo(dot, 'x', { duration: 0.4, ease: 'power3' });
+        const yTo = gsap.quickTo(dot, 'y', { duration: 0.4, ease: 'power3' });
+
+        let shown = false;
+        window.addEventListener('mousemove', (e) => {
+            if (!shown) {
+                shown = true;
+                gsap.set(dot, { x: e.clientX, y: e.clientY });
+                gsap.to(dot, { opacity: 1, duration: 0.3 });
+            }
+            xTo(e.clientX);
+            yTo(e.clientY);
+        });
+
+        // Grow + soften over interactive elements
+        const isInteractive = (t: EventTarget | null) =>
+            t instanceof Element && t.closest('a, button, [role="button"]');
+
+        document.addEventListener('mouseover', (e) => {
+            if (isInteractive(e.target)) gsap.to(dot, { scale: 2.6, opacity: 0.5, duration: 0.3 });
+        });
+        document.addEventListener('mouseout', (e) => {
+            if (isInteractive(e.target)) gsap.to(dot, { scale: 1, opacity: 1, duration: 0.3 });
+        });
+
+        // Fade out when the pointer leaves the window
+        document.addEventListener('mouseleave', () => gsap.to(dot, { opacity: 0, duration: 0.2 }));
+        document.addEventListener('mouseenter', () => { if (shown) gsap.to(dot, { opacity: 1, duration: 0.2 }); });
+    }
+</script>

@@ -1,8 +1,143 @@
 @import "tailwindcss";
 @plugin "@iconify/tailwind4";
 
-@custom-variant dark (&:where(.dark, .dark *));
+/* ── Design tokens (paper + ink) ───────────────────────────── */
+@theme {
+    --color-paper:      #f3f0e9; /* page background            */
+    --color-paper-alt:  #eae6db; /* stats band, work tags      */
+    --color-ink:        #17160f; /* primary text, dark bg      */
+    --color-ink-muted:  #5c5b51; /* body copy                  */
+    --color-ink-faint:  #8a887c; /* meta labels, captions      */
+    --color-line:       #e2ddd0; /* dividers on paper          */
+    --color-line-soft:  #ded9cd; /* dividers on paper (softer) */
+    --color-accent:     #1f34d6; /* cobalt accent on light     */
+    --color-accent-dk:  #6f7cff; /* accent inside dark blocks  */
 
-html {
-    scroll-behavior: smooth;
+    --font-display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
+    --font-sans:    "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Base resets live in @layer base so Tailwind utilities (text-ink,
+   text-paper, …) still win on anchors and other elements. */
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: var(--font-sans);
+        color: var(--color-ink);
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+    a:hover {
+        color: var(--color-accent);
+    }
+
+    ::selection {
+        background: var(--color-accent);
+        color: var(--color-paper);
+    }
+}
+
+/* Elements the GSAP timeline reveals — hint the compositor. */
+.fx {
+    will-change: transform, opacity;
+}
+
+/* ── Nav: animated underline on hover ──────────────────────── */
+.navlink {
+    position: relative;
+}
+.navlink::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    height: 1.5px;
+    width: 0;
+    background: var(--color-accent);
+    transition: width 0.3s ease;
+}
+.navlink:hover::after {
+    width: 100%;
+}
+
+/* ── Work rows: title + arrow react on hover ───────────────── */
+.workrow:hover .worktitle {
+    color: var(--color-accent);
+}
+.workrow:hover .workarrow {
+    transform: translate(6px, -6px);
+}
+.workarrow {
+    transition: transform 0.35s ease;
+}
+
+/* ── Skills scrollytelling transitions ─────────────────────── */
+.cat-item,
+.cat-num,
+.cat-name {
+    transition: opacity 0.4s ease, color 0.4s ease;
+}
+.cat-panel {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.sk-item {
+    transition: opacity 0.45s ease, transform 0.45s ease;
+}
+.prog-dot {
+    transition: background 0.4s ease;
+}
+
+/* ── Skills on mobile: no pin/scrub — show every category ──── */
+@media (max-width: 767px) {
+    #skills .skills-switcher {
+        display: none;
+    }
+    #skills .cat-panel {
+        position: relative !important;
+        inset: auto !important;
+        opacity: 1 !important;
+        transform: none !important;
+        pointer-events: auto !important;
+        margin-bottom: 40px;
+    }
+    #skills .cat-panel::before {
+        content: attr(data-name);
+        display: block;
+        font-family: var(--font-display);
+        font-weight: 600;
+        font-size: 32px;
+        letter-spacing: -0.02em;
+        margin-bottom: 14px;
+    }
+    #skills .sk-item {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
+
+/* ── Reduced motion: no transforms, everything visible ─────── */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+    .fx {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+    .cat-item,
+    .cat-panel,
+    .sk-item {
+        opacity: 1 !important;
+        transform: none !important;
+        position: relative !important;
+    }
+    .cat-panel {
+        margin-bottom: 24px;
+    }
 }

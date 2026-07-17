@@ -1,39 +1,46 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Main from '../components/Main.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Skills from '../components/Skills.astro';
+import Services from '../components/Services.astro';
+import Stats from '../components/Stats.astro';
+import Work from '../components/Work.astro';
+import Contact from '../components/Contact.astro';
 
 const jsonLd = {
-    "@context": "https://schema.org",
-    "@graph": [
+    '@context': 'https://schema.org',
+    '@graph': [
         {
-            "@type": "Person",
-            "@id": "https://montano.me/#person",
-            "name": "Fernando Montano",
-            "url": "https://montano.me/",
-            "jobTitle": "Fullstack Developer",
-            "description": "Fullstack Developer specializing in React, Next.js, TypeScript, Node.js and cloud infrastructure.",
-            "sameAs": [
-                "https://github.com/montanoo",
-                "https://www.linkedin.com/in/fernandojmontano/"
+            '@type': 'Person',
+            '@id': 'https://montano.me/#person',
+            name: 'Fernando Montano',
+            url: 'https://montano.me/',
+            jobTitle: 'Fullstack Developer',
+            description:
+                'Fullstack Developer specializing in React, Next.js, TypeScript, Node.js and cloud infrastructure.',
+            email: 'mailto:hello@montano.me',
+            sameAs: [
+                'https://github.com/montanoo',
+                'https://www.linkedin.com/in/fernandojmontano/',
             ],
-            "worksFor": {
-                "@type": "Organization",
-                "name": "Willdom"
-            },
-            "knowsAbout": [
-                "React", "Next.js", "TypeScript", "JavaScript",
-                "Node.js", "NestJS", "Vue", "Docker",
-                "PostgreSQL", "MySQL", "Redis", "Linux"
-            ]
+            worksFor: { '@type': 'Organization', name: 'Willdom' },
+            knowsAbout: [
+                'React', 'Next.js', 'TypeScript', 'JavaScript', 'Vue',
+                'Node.js', 'NestJS', 'Express', 'Laravel',
+                'PostgreSQL', 'MySQL', 'Redis',
+                'Docker', 'Linux', 'GitHub Actions', 'AWS', 'Vercel',
+            ],
         },
         {
-            "@type": "WebSite",
-            "@id": "https://montano.me/#website",
-            "name": "Fernando Montano",
-            "url": "https://montano.me/",
-            "author": { "@id": "https://montano.me/#person" }
-        }
-    ]
+            '@type': 'WebSite',
+            '@id': 'https://montano.me/#website',
+            name: 'Fernando Montano',
+            url: 'https://montano.me/',
+            author: { '@id': 'https://montano.me/#person' },
+        },
+    ],
 };
 ---
 
@@ -43,5 +50,18 @@ const jsonLd = {
     type="profile"
     jsonLd={jsonLd}
 >
-    <Main />
+    <Nav />
+    <main>
+        <Hero />
+        <About />
+        <Skills />
+        <Services />
+        <Stats />
+        <Work />
+    </main>
+    <Contact />
 </Layout>
+
+<script>
+    import '../scripts/animations.ts';
+</script>

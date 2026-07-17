@@ -1,0 +1,60 @@
+---
+const projects = [
+    {
+        title: "Fodor's Travel",
+        link:  'https://www.fodors.com',
+        period: '2023 — Present',
+        desc:  'High-traffic travel content platform. Fullstack work on a Vue & Laravel stack backed by PostgreSQL.',
+        tags:  ['Vue', 'Laravel', 'PostgreSQL'],
+    },
+    {
+        title: 'Marian Films',
+        link:  'https://marianfilms.com',
+        period: '2026',
+        desc:  'Portfolio site for a film production studio. Built on Astro and deployed to Cloudflare Pages.',
+        tags:  ['Astro', 'Cloudflare Pages'],
+    },
+    {
+        title: 'Vamo Delivery',
+        link:  'https://www.vamodelivery.com',
+        period: '2022 — 2023',
+        desc:  'On-demand delivery app serving thousands of orders. Fullstack with React Native, Node.js and AWS.',
+        tags:  ['React Native', 'Node.js', 'AWS'],
+    },
+];
+---
+
+<section id="work" class="px-6 md:px-14 py-24 md:py-[120px]">
+    <div class="fx text-[15px] font-semibold text-accent mb-[18px]">04 — Selected work</div>
+    <h2 class="fx font-display font-semibold text-[clamp(34px,4vw,56px)] leading-[1.05] tracking-[-0.02em] m-0 mb-14 max-w-[760px]">
+        Things I've built.
+    </h2>
+
+    {projects.map((p, i) => (
+        <a
+            href={p.link}
+            target="_blank"
+            rel="noopener"
+            class={`workrow fx block border-t border-line-soft py-8 md:py-10 ${i === projects.length - 1 ? 'border-b' : ''}`}
+        >
+            <div class="grid md:grid-cols-[1.2fr_1fr_auto] gap-6 md:gap-10 items-center">
+                <div>
+                    <div class="worktitle font-display font-semibold text-[clamp(28px,3.4vw,44px)] tracking-[-0.02em]">{p.title}</div>
+                    <div class="text-[15px] text-ink-faint mt-2">{p.period}</div>
+                </div>
+                <p class="text-[16px] leading-[1.6] text-ink-muted m-0">{p.desc}</p>
+                <div class="flex items-center justify-between md:justify-end gap-7">
+                    <div class="flex flex-wrap gap-2">
+                        {p.tags.map((tag) => (
+                            <span class="text-[13px] font-medium px-3 py-1.5 bg-paper-alt rounded-full">{tag}</span>
+                        ))}
+                    </div>
+                    <svg class="workarrow shrink-0" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#17160f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <line x1="7" y1="17" x2="17" y2="7" />
+                        <polyline points="7 7 17 7 17 17" />
+                    </svg>
+                </div>
+            </div>
+        </a>
+    ))}
+</section>
